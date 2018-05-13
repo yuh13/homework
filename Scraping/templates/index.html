@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mission to Mars!!!</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="jumbotron text-center">
+      <h1>Mission to Mars</h1>
+      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
+    </div>
+
+    <!-- Mars -->
+    <div class="row" id="latest-news">
+      <div class="col-md-12">
+      	<h1 class="heading">Latest Mars News</h1>
+        <h3 class="heading" id="latest-news-title">{{news_title}}</h3>
+        <p>{{news_p}}</p>
+      </div>
+    </div>
+    <hr>
+    <div class="row" id="featured-image-weather-facts">
+    	<div class="col-lg-9">
+    		<h1 class="heading">Featured Space Image</h1>
+    		<img src= {{ featured_image_url }} alt="space image" class='img-responsive'>
+    	</div>
+    	<div class="col-lg-3">
+    		<h3 class="heading">Current Weather on Mars</h3>
+    		<p> {{mars_weather}}</p>
+    		<h3 class="heading">Mars Facts</h3>
+    		<table class="table table-dark">
+    			<thead>
+    				<tr>
+    			{% for headers in df %}
+    				<th scope="col"> {{headers}} </th>
+    			{% endfor %}
+    				</tr>
+    			</thead>
+    			<tbody>
+    				{% for x in len_df %}
+    					<tr>
+    						<td>{{df.Parameter[x]}}</td>
+    						<td>{{df.Value[x]}}</td>
+    					</tr>
+    				{% endfor %}
+    			</tbody>
+    		</table>
+    	</div>
+    </div>
+    <hr>
+    <div class="row" id="hemispheres">
+    	<h2 class='heading text-center'>Mars Hemispheres</h2>
+    	{% for dict_item in hemisphere_image_urls %}
+    		<div class="col-lg-6">
+   				<figure class='figure'>
+   					<img src={{ dict_item['img_url'] }} alt='hemisphere.jpg' class='img-responsive'>
+   					<figcaption class="figure-caption"> {{ dict_item['title'] }} </figcaption>
+   				</figure>
+    		</div>
+    	{% endfor %}
+    </div>
+  </div>
+</body>
+
+</html>
