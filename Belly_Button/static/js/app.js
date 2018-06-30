@@ -16,26 +16,22 @@ Plotly.d3.json(url, function(error, response) {
         .enter()
         .append('option')
         .text(function (d) { return d; });
-
-    function optionChanged() {
-        selectValue = Plotly.d3.select('select').property('value')
-        selected_sample = selectValue
-        console.log(selected_sample)
-        newPie()
-    };    
+   
 })
 
 //var url_metadata = "/metadata/<sample>"
 //Plotly.d3.json(url, )
 
+function optionChanged() {
+    selected_sample = Plotly.d3.select('select').property('value')
+    console.log("new " + selected_sample)
+    newPie()
+}; 
 
-var url_pie = `/samples/${selected_sample}`
-newPie()
 function newPie(){
-    Plotly.d3.json(url_pie, function(error, response1){
+    Plotly.d3.json("/samples/" + selected_sample, function(error, response1){
         var url_otu = ""
-        console.log("in piechart function")
-        console.log(url_pie)
+        console.log("in piechart function for: " + selected_sample)
         var data = [{
             values: response1[0]["sample_values"].slice(0,10),
             labels: response1[0]["otu_ids"].slice(0.10),
@@ -49,6 +45,8 @@ function newPie(){
         Plotly.newPlot('pie', data, layout)
     })
 }
+
+newPie()
 
 
 //function init() {
